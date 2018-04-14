@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
         exit(0);
     }
 
-    VideoHandler handler(mConfig._config.strCamUrl);
+    VideoHandler handler("C:/GD/temp/MVI_0361.MP4");
 
     videoHandler = &handler;
 

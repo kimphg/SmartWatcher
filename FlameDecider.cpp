@@ -46,7 +46,7 @@ FlameDecider::FlameDecider()
 #else
 FlameDecider::FlameDecider()
 {
-    mSVM->load(SVM_DATA_FILE.c_str());
+    11mSVM->load(SVM_DATA_FILE.c_str());
 }
 #endif
 
