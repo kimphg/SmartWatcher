@@ -28,7 +28,8 @@ private:
 #endif
     
     Mat mFrame;
-    CvSVM mSVM;
+    //CvSVM mSVM;
+    Ptr<ml::SVM> mSVM = ml::SVM::create();
     
 #ifdef TRAIN_MODE
     bool mSampleEnough;

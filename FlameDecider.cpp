@@ -46,7 +46,7 @@ FlameDecider::FlameDecider()
 #else
 FlameDecider::FlameDecider()
 {
-    mSVM.load(SVM_DATA_FILE.c_str());
+    mSVM->load(SVM_DATA_FILE.c_str());
 }
 #endif
 
@@ -161,7 +161,7 @@ inline bool FlameDecider::svmPredict(const Feature& feature)
 {
     Mat tesst = Mat(feature);
     tesst =tesst;
-    float result = mSVM.predict(Mat(feature));
+    float result = mSVM->predict(Mat(feature));
     //cout << "result: " << result << endl;
 //    if(result)
 //    {

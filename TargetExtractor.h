@@ -59,7 +59,8 @@ private:
     vector<ContourInfo> mContours;
     
     Mat mBackground;
-    BackgroundSubtractorMOG2 mMOG;
+    //BackgroundSubtractorMOG2 mMOG;
+    Ptr<BackgroundSubtractor> mMOG = createBackgroundSubtractorMOG2(500, 25, false);
 
 #ifdef OLD_ALGO
     void movementDetect2(int threshold = 30, double learningRate = 0.01);
