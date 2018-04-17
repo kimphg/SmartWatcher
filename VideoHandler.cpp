@@ -80,47 +80,6 @@ int VideoHandler::handle()
     Rect mROI(mConfig._config.cropX, mConfig._config.cropY, mConfig._config.frmWidth - (2*mConfig._config.cropX),
                  mConfig._config.frmHeight - (2*mConfig._config.cropY));
 
-    //sound.setLoops(15);
-
-    // The thread and the worker are created in the constructor so it is always safe to delete them.
-#ifdef MODE_MULTITHREAD
-    mCapture.release();
-    // first thread
-    m_thread = new QThread();
-    m_worker = new VideoWork();
-    m_worker->moveToThread(m_thread);
-    QObject::connect(m_worker, SIGNAL(workRequested()), m_thread, SLOT(start()));
-    QObject::connect(m_thread, SIGNAL(started()), m_worker, SLOT(doWork()));
-    QObject::connect(m_worker, SIGNAL(finished()), m_thread, SLOT(quit()), Qt::DirectConnection);
-    m_worker->abort();
-    m_thread->wait();
-    m_worker->requestWork();
-
-    // second thread
-    m_thread2 = new QThread();
-    m_worker2 = new VideoWork();
-    m_worker2->moveToThread(m_thread2);
-    QObject::connect(m_worker2, SIGNAL(workRequested()), m_thread2, SLOT(start()));
-    QObject::connect(m_thread2, SIGNAL(started()), m_worker2, SLOT(doWork2()));
-    QObject::connect(m_worker2, SIGNAL(finished()), m_thread2, SLOT(quit()), Qt::DirectConnection);
-    m_worker2->abort();
-    m_thread2->wait();
-    m_worker2->requestWork();
-
-    // third thread
-    m_thread3 = new QThread();
-    m_worker3 = new VideoWork();
-    m_worker3->moveToThread(m_thread3);
-    QObject::connect(m_worker3, SIGNAL(workRequested()), m_thread3, SLOT(start()));
-    QObject::connect(m_thread3, SIGNAL(started()), m_worker3, SLOT(doWork3()));
-    QObject::connect(m_worker3, SIGNAL(finished()), m_thread3, SLOT(quit()), Qt::DirectConnection);
-    m_worker3->abort();
-    m_thread3->wait();
-    m_worker3->requestWork();
-    onTimer();
-    return 3;
-#endif
-
     if (!mCapture.isOpened()) {
         return STATUS_OPEN_CAP_FAILED;
     }
@@ -132,21 +91,21 @@ int VideoHandler::handle()
             cout << (mFromCam ? "Camera disconnected." : "Video file ended.") << endl;
             break;
         }
-
+        //resize(mOrgFrame, mOrgFrame, cvSize(600,400));
+        imshow("result", mOrgFrame);
+        cv::waitKey(30);
+        continue;
         resize(mOrgFrame, mOrgFrame, cvSize(mConfig._config.frmWidth, mConfig._config.frmHeight));
         //imshow("original", mOrgFrame);
 
-#ifdef MODE_GRAYSCALE
-        cv::cvtColor(mOrgFrame,mFrame, CV_BGRA2GRAY);
-#endif
-
+        if(true)cv::cvtColor(mOrgFrame,mFrame, CV_BGRA2GRAY);
         mFrame = mFrame(mROI);
 
 
         if (true)
         {
 
-            if (mDetector.detect(mFrame))
+            if (mFlameDetector.detect(mFrame))
             {
                 if(saveFrame())
                 {
@@ -168,10 +127,11 @@ int VideoHandler::handle()
             break;
         }
 #endif
-        if (waitKey(WAIT_INTERVAL) == 27) {
-            cout << "User abort." << endl;
-            break;
-        }
+        cv::waitKey(30);
+//        if (waitKey(WAIT_INTERVAL) == 27) {
+//            cout << "User abort." << endl;
+//            break;
+//        }
     }
 
     return STATUS_NO_FLAME_DETECTED;
@@ -179,7 +139,7 @@ int VideoHandler::handle()
 
 bool VideoHandler::saveFrame()
 {   
-    rectangle(mOrgFrame, mDetector.m_Rect, Scalar(0, 255, 0));
+    rectangle(mOrgFrame, mFlameDetector.m_Rect, Scalar(0, 255, 0));
 //    rectangle(mOrgFrame, Rect(mConfig._config.cropX, mConfig._config.cropY, mConfig._config.frmWidth - (2*mConfig._config.cropX), mConfig._config.frmHeight
 //                              - (2*mConfig._config.cropY)), Scalar(0, 0, 255));
 
@@ -187,7 +147,7 @@ bool VideoHandler::saveFrame()
 //        return false;
 //    if ((mDetector.m_Rect.x +mDetector.m_Rect.width )> (mConfig._config.frmWidth*2/3))
 //        return false;
-    if ((mDetector.m_Rect.y + mDetector.m_Rect.height) >= (mConfig._config.frmHeight - mConfig._config.cropY - 2))
+    if ((mFlameDetector.m_Rect.y + mFlameDetector.m_Rect.height) >= (mConfig._config.frmHeight - mConfig._config.cropY - 2))
         return false;
 
     // save detected frame to jpg

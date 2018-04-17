@@ -59,11 +59,11 @@ public:
 //    VideoHandler(const string& file, bool saveKeyFrame = false);
 
 
-    FlameDetector mDetector;
+    FlameDetector mFlameDetector;
     VideoHandler(int device);
     VideoHandler(const string& file);
     
-    const FlameDetector& getDetector() const { return mDetector; }
+    const FlameDetector& getDetector() const { return mFlameDetector; }
     double getVideoFPS() const { return mVideoFPS; }
     int handle();
 

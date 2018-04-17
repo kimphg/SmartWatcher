@@ -34,7 +34,7 @@ using namespace cv;
 //#define TEST_MODE
 //#define DEBUG_MODE
 #ifndef TRAIN_MODE
-#define MODE_MULTITHREAD
+//#define MODE_MULTITHREAD
 #endif
 #define MODE_GRAYSCALE
 #ifdef TRAIN_MODE

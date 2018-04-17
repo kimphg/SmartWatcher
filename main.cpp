@@ -24,14 +24,11 @@ int main(int argc, char *argv[])
     {
         exit(0);
     }
-
-    VideoHandler handler("C:/GD/temp/MVI_0361.MP4");
+    VideoHandler handler("rtsp://admin:admin@192.168.1.2/live3.sdp");
+    //VideoHandler handler("http://root:root@192.168.1.201/mjpg/video.mjpg");
 
     videoHandler = &handler;
 
     int ret = handler.handle();
-
-
-
     return a.exec();
 }
