@@ -143,15 +143,13 @@ int VideoHandler::handle()
         mFrame = mFrame(mROI);
 
 
-        if (true)//xu ly 3 frame 1 lan
+        if (true)
         {
 
             if (mDetector.detect(mFrame))
             {
                 if(saveFrame())
                 {
-//                    if (sound.isFinished())
-//                    sound.play();
                     this->ActivateAlarm();
                     cout << "Flame detected." << endl;
                 }

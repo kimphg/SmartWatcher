@@ -37,7 +37,7 @@ int FlameDetector::detect(const Mat& frame)
     if (mTrack)
     {
         mAnalyzer.analyze(mFrame, mTargetMap,mExtractor.mMask);
-        int result = mDecider.decide(mFrame, mTargetMap);
+        int result = false;//mDecider.decide(mFrame, mTargetMap);
         finish = clock();
 
         if (result)

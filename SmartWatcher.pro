@@ -20,9 +20,12 @@ SOURCES += main.cpp \
     Config.cpp \
     videowork.cpp
 
+#INCLUDEPATH += "D:/openCV/OpenCV320/build/include"
+#LIBS += "D:/openCV/OpenCV320/build/x86/vc12/lib/*.lib"
 
-INCLUDEPATH += "D:/openCV/OpenCV320/build/include"
-LIBS += "D:/openCV/OpenCV320/build/x86/vc12/lib/*.lib"
+INCLUDEPATH += "D:/openCV/OpenCV331/build/include/"
+LIBS += "D:/openCV/OpenCV331/build/lib/Release/*.lib"
+LIBS += "D:/openCV/OpenCV331/build/lib/Debug/*.lib"
 
 #win32:RC_FILE += FlameDetection.rc
 

@@ -31,20 +31,7 @@ int main(int argc, char *argv[])
 
     int ret = handler.handle();
 
-    switch (ret) {
-        case VideoHandler::STATUS_FLAME_DETECTED:
-            cout << "Flame detected." << endl;
-            break;
-        case VideoHandler::STATUS_OPEN_CAP_FAILED:
-            cout << "Open capture failed." << endl;
-            break;
-        case VideoHandler::STATUS_NO_FLAME_DETECTED:
-            cout << "No flame detected." << endl;
-            break;
-        default:
-            cout << "Detecting flames..." << endl;
-            break;
-        }
+
 
     return a.exec();
 }

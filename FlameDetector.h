@@ -1,10 +1,3 @@
-//
-//  FlameDetector.h
-//  FlameDetection
-//
-//  Created by liberize on 14-4-5.
-//  Copyright (c) 2014年 liberize. All rights reserved.
-//
 
 #ifndef __FlameDetection__FlameDetector__
 #define __FlameDetection__FlameDetector__
