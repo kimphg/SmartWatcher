@@ -93,10 +93,11 @@ int VideoHandler::handle()
         }
         //resize(mOrgFrame, mOrgFrame, cvSize(600,400));
         imshow("result", mOrgFrame);
+        cout<<"newframe"<<endl;
         cv::waitKey(30);
         continue;
         resize(mOrgFrame, mOrgFrame, cvSize(mConfig._config.frmWidth, mConfig._config.frmHeight));
-        //imshow("original", mOrgFrame);
+        imshow("original", mOrgFrame);
 
         if(true)cv::cvtColor(mOrgFrame,mFrame, CV_BGRA2GRAY);
         mFrame = mFrame(mROI);
